@@ -4,8 +4,17 @@ from data.inventario import inventario, ids_productos, CATEGORIAS
 from utils.validaciones import (
     validar_entero,
     validar_flotante,
-    validar_texto_no_vacio
+    validar_texto_no_vacio,
+    formato_pesos_clp
 )
+
+def generar_id_producto(id_actual=1):
+    """
+    Genera un ID único para un producto usando recursividad.
+    """
+    if id_actual not in ids_productos:
+        return id_actual
+    return generar_id_producto(id_actual + 1)
 
 
 def mostrar_categorias():
@@ -20,16 +29,24 @@ def listar_productos():
         return
 
     print("\nLISTADO DE PRODUCTOS")
-    print("-" * 60)
+    print("-" * 110)
+
     for producto in inventario:
+        precio = formato_pesos_clp(producto["precio"])
+        estado = "Activo" if producto["activo"] else "Inactivo"
+        alerta_stock = " STOCK BAJO" if producto["stock"] <= producto["stock_minimo"] else ""
+
         print(
             f"ID: {producto['id']} | "
             f"{producto['nombre']} | "
-            f"Categoría: {producto['categoria']} | "
-            f"Precio: ${producto['precio']:,} | "
-            f"Stock: {producto['stock']}"
+            f"Cat: {producto['categoria']} | "
+            f"Precio: ${precio} | "
+            f"Stock: {producto['stock']} | "
+            f"Mín: {producto['stock_minimo']} | "
+            f"Estado: {estado}{alerta_stock}"
         )
-    print("-" * 60)
+
+    print("-" * 110)
 
 
 def agregar_producto():
@@ -50,19 +67,23 @@ def agregar_producto():
 
     precio = validar_flotante("Precio: ")
     stock = validar_entero("Stock inicial: ")
+    stock_minimo = validar_entero("Stock mínimo: ")
 
     producto = {
         "id": id_producto,
         "nombre": nombre,
         "categoria": categoria,
         "precio": precio,
-        "stock": stock
+        "stock": stock,
+        "stock_minimo": stock_minimo,
+        "activo": True
     }
 
     inventario.append(producto)
     ids_productos.add(id_producto)
 
     print("Producto agregado correctamente.")
+
 
 
 def buscar_producto_por_id(id_producto):
@@ -89,7 +110,7 @@ def actualizar_stock():
 
 
 def eliminar_producto():
-    print("\nELIMINAR PRODUCTO")
+    print("\n DESACTIVAR PRODUCTO")
 
     id_producto = validar_entero("ID del producto: ")
     producto = buscar_producto_por_id(id_producto)
@@ -98,7 +119,6 @@ def eliminar_producto():
         print("Producto no encontrado.")
         return
 
-    inventario.remove(producto)
-    ids_productos.remove(id_producto)
+    producto["activo"] = False
+    print("Producto desactivado correctamente.")
 
-    print("Producto eliminado del inventario.")
