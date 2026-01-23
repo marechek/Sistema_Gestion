@@ -52,10 +52,8 @@ def listar_productos():
 def agregar_producto():
     print("\nAGREGAR PRODUCTO")
 
-    id_producto = validar_entero("ID del producto: ")
-    if id_producto in ids_productos:
-        print("El ID ya existe. Operación cancelada.")
-        return
+    id_producto = generar_id_producto()
+    print(f"ID asignado automáticamente: {id_producto}")
 
     nombre = validar_texto_no_vacio("Nombre del producto: ")
 
