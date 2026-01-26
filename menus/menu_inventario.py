@@ -10,35 +10,30 @@ from servicios.inventario_service import (
 
 
 def menu_inventario():
+    opciones = {
+        "1": ("Listar productos", listar_productos),
+        "2": ("Agregar producto", agregar_producto),
+        "3": ("Actualizar stock", actualizar_stock),
+        "4": ("Activar producto", activar_producto),
+        "5": ("Desactivar producto", desactivar_producto),
+        "0": ("Volver al menú principal", None)
+    }
+
     while True:
         print("\nMENÚ INVENTARIO")
-        print("1. Listar productos")
-        print("2. Agregar producto")
-        print("3. Actualizar stock")
-        print("4. Desactivar producto")
-        print("5. Activar producto")
-        print("0. Volver al menú principal")
+        for key, valor in opciones.items():
+            texto = valor[0]
+            print(f"{key}. {texto}")
 
         opcion = input("Seleccione una opción: ")
 
-        if opcion == "1":
-            listar_productos()
-
-        elif opcion == "2":
-            agregar_producto()
-
-        elif opcion == "3":
-            actualizar_stock()
-
-        elif opcion == "4":
-            desactivar_producto()
-        
-        elif opcion == "5":
-            activar_producto()
-
-        elif opcion == "0":
+        if opcion == "0":
             print("Volviendo al menú principal...")
             break
 
+        accion = opciones.get(opcion)
+
+        if accion:
+            accion[1]()
         else:
             print("Opción inválida. Intente nuevamente.")

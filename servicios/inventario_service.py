@@ -107,6 +107,7 @@ def agregar_producto():
     ids_productos.add(id_producto)
 
     print("Producto agregado correctamente.")
+    mostrar_producto(producto)
 
 
 def buscar_producto_por_id(id_producto):
