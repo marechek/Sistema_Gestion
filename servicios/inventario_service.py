@@ -47,6 +47,23 @@ def obtener_categoria():
 
         print("Categoría no encontrada. Intente nuevamente.")
 
+def mostrar_producto(producto):
+    precio = formato_pesos_clp(producto["precio"])
+    estado = "Activo" if producto["activo"] else "Inactivo"
+    alerta_stock = " STOCK BAJO" if producto["stock"] <= producto["stock_minimo"] else ""
+
+    salida = (
+        f"ID: {producto['id']} | "
+        f"{producto['nombre']} | "
+        f"Cat: {producto['categoria']} | "
+        f"Precio: ${precio} | "
+        f"Stock: {producto['stock']} | "
+        f"Mín: {producto['stock_minimo']} | "
+        f"Estado: {estado}{alerta_stock}"
+    )
+
+    print(salida)
+
 
 def listar_productos():
     if not inventario:
@@ -55,21 +72,9 @@ def listar_productos():
 
     print("\nLISTADO DE PRODUCTOS")
     print("-" * 110)
-
+   
     for producto in inventario:
-        precio = formato_pesos_clp(producto["precio"])
-        estado = "Activo" if producto["activo"] else "Inactivo"
-        alerta_stock = " STOCK BAJO" if producto["stock"] <= producto["stock_minimo"] else ""
-
-        print(
-            f"ID: {producto['id']} | "
-            f"{producto['nombre']} | "
-            f"Cat: {producto['categoria']} | "
-            f"Precio: ${precio} | "
-            f"Stock: {producto['stock']} | "
-            f"Mín: {producto['stock_minimo']} | "
-            f"Estado: {estado}{alerta_stock}"
-        )
+        mostrar_producto(producto)
 
     print("-" * 110)
 
@@ -104,7 +109,6 @@ def agregar_producto():
     print("Producto agregado correctamente.")
 
 
-
 def buscar_producto_por_id(id_producto):
     for producto in inventario:
         if producto["id"] == id_producto:
@@ -114,6 +118,8 @@ def buscar_producto_por_id(id_producto):
 
 def actualizar_stock():
     print("\nACTUALIZAR STOCK")
+
+    listar_productos()
 
     id_producto = validar_entero("ID del producto: ")
     producto = buscar_producto_por_id(id_producto)
@@ -126,10 +132,14 @@ def actualizar_stock():
     producto["stock"] = nuevo_stock
 
     print("Stock actualizado correctamente.")
+    print("Producto actualizado:")
+    mostrar_producto(producto)
 
 
 def desactivar_producto():
     print("\n DESACTIVAR PRODUCTO")
+
+    listar_productos()
 
     id_producto = validar_entero("ID del producto: ")
     producto = buscar_producto_por_id(id_producto)
@@ -137,7 +147,30 @@ def desactivar_producto():
     if not producto:
         print("Producto no encontrado.")
         return
+    elif not producto["activo"]:
+        print("El producto seleccionado ya está inactivo. No se realiza ninguna acción.")
+        return
 
     producto["activo"] = False
     print("Producto desactivado correctamente.")
+    mostrar_producto(producto)
+
+def activar_producto():
+    print("\n ACTIVAR PRODUCTO")
+
+    listar_productos()
+
+    id_producto = validar_entero("ID del producto: ")
+    producto = buscar_producto_por_id(id_producto)
+
+    if not producto:
+        print("Producto no encontrado.")
+        return
+    elif producto["activo"]:
+        print("El producto seleccionado ya está activo. No se realiza ninguna acción.")
+        return
+    
+    producto["activo"] = True
+    print("Producto activado correctamente.")
+    mostrar_producto(producto)
 

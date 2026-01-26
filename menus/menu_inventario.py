@@ -4,7 +4,8 @@ from servicios.inventario_service import (
     listar_productos,
     agregar_producto,
     actualizar_stock,
-    desactivar_producto
+    desactivar_producto,
+    activar_producto
 )
 
 
@@ -15,6 +16,7 @@ def menu_inventario():
         print("2. Agregar producto")
         print("3. Actualizar stock")
         print("4. Desactivar producto")
+        print("5. Activar producto")
         print("0. Volver al menú principal")
 
         opcion = input("Seleccione una opción: ")
@@ -30,6 +32,9 @@ def menu_inventario():
 
         elif opcion == "4":
             desactivar_producto()
+        
+        elif opcion == "5":
+            activar_producto()
 
         elif opcion == "0":
             print("Volviendo al menú principal...")

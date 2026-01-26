@@ -42,8 +42,9 @@ def validar_texto_no_vacio(mensaje):
             continue
         return texto
     
+
 def formato_pesos_clp(valor):
     """
     Formatea un valor como pesos chilenos.
     """
-    return f"$ {valor:,.0f}".replace(",", ".")
+    return f"{valor:,.0f}".replace(",", ".")
