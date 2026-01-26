@@ -128,7 +128,7 @@ def actualizar_stock():
     print("Stock actualizado correctamente.")
 
 
-def eliminar_producto():
+def desactivar_producto():
     print("\n DESACTIVAR PRODUCTO")
 
     id_producto = validar_entero("ID del producto: ")
