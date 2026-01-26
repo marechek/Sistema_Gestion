@@ -19,8 +19,33 @@ def generar_id_producto(id_actual=1):
 
 def mostrar_categorias():
     print("\nCategorías disponibles:")
-    for categoria in CATEGORIAS:
-        print(f"- {categoria}")
+    for i, categoria in enumerate(CATEGORIAS, start=1):
+        print(f"{i}. {categoria}")
+
+def obtener_categoria():
+    """
+    Permite seleccionar una categoría por ID o por nombre.
+    Repite hasta que la categoría sea válida.
+    """
+    while True:
+        mostrar_categorias()
+        entrada = input("Seleccione categoría (ID o nombre): ").strip()
+
+        # Intento por ID
+        if entrada.isdigit():
+            indice = int(entrada) - 1
+            if 0 <= indice < len(CATEGORIAS):
+                return CATEGORIAS[indice]
+            else:
+                print("ID de categoría inválido.")
+                continue
+
+        # Intento por nombre
+        for categoria in CATEGORIAS:
+            if entrada.lower() == categoria.lower():
+                return categoria
+
+        print("Categoría no encontrada. Intente nuevamente.")
 
 
 def listar_productos():
@@ -57,11 +82,7 @@ def agregar_producto():
 
     nombre = validar_texto_no_vacio("Nombre del producto: ")
 
-    mostrar_categorias()
-    categoria = validar_texto_no_vacio("Categoría: ")
-    if categoria not in CATEGORIAS:
-        print("Categoría inválida.")
-        return
+    categoria = obtener_categoria()
 
     precio = validar_flotante("Precio: ")
     stock = validar_entero("Stock inicial: ")

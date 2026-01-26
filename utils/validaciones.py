@@ -41,3 +41,9 @@ def validar_texto_no_vacio(mensaje):
             print("El texto no puede estar vacío.")
             continue
         return texto
+    
+def formato_pesos_clp(valor):
+    """
+    Formatea un valor como pesos chilenos.
+    """
+    return f"$ {valor:,.0f}".replace(",", ".")
