@@ -215,3 +215,101 @@ def crear_venta():
             print("Ocurrió un error al ejecutar la opción.")
             print(f"Detalle técnico: {e}")
 
+
+def buscar_venta_por_id(id_venta):
+    for venta in ventas:
+        if venta["id"] == id_venta:
+            return venta
+    return None
+
+
+def mostrar_venta(venta, mostrar_detalle=True):
+    estado = "Activa" if venta.get("activo", True) else "Anulada"
+    total = formato_pesos_clp(venta.get("total", 0))
+
+    print(
+        f"ID Venta: {venta['id']} | "
+        f"Cliente: {venta.get('cliente_nombre', 'N/A')} | "
+        f"Total: ${total} | "
+        f"Estado: {estado}"
+    )
+
+    if not mostrar_detalle:
+        return
+
+    items = venta.get("items", [])
+    if not items:
+        print("  (Sin items)")
+        return
+
+    print("  Detalle:")
+    for item in items:
+        precio = formato_pesos_clp(item["precio"])
+        subtotal = formato_pesos_clp(item["subtotal"])
+        print(
+            f"  - ID Prod: {item['producto_id']} | "
+            f"{item['nombre']} | "
+            f"Precio: ${precio} | "
+            f"Cantidad: {item['cantidad']} | "
+            f"Subtotal: ${subtotal}"
+        )
+
+
+def listar_ventas():
+    if not ventas:
+        print("\nNo hay ventas registradas.")
+        return
+
+    print("\nLISTADO DE VENTAS")
+    print("-" * 110)
+
+    for venta in ventas:
+        # listado resumido (sin detalle)
+        mostrar_venta(venta, mostrar_detalle=False)
+
+    print("-" * 110)
+
+
+def ver_detalle_venta():
+    print("\nVER DETALLE DE VENTA")
+    listar_ventas()
+
+    id_venta = validar_entero("ID de la venta: ")
+    venta = buscar_venta_por_id(id_venta)
+
+    if not venta:
+        print("Venta no encontrada.")
+        return
+
+    print("\nDETALLE DE VENTA")
+    print("-" * 110)
+    mostrar_venta(venta, mostrar_detalle=True)
+    print("-" * 110)
+
+
+def anular_venta():
+    print("\nANULAR VENTA")
+    listar_ventas()
+
+    id_venta = validar_entero("ID de la venta a anular: ")
+    venta = buscar_venta_por_id(id_venta)
+
+    if not venta:
+        print("Venta no encontrada.")
+        return
+
+    if not venta.get("activo", True):
+        print("La venta ya está anulada. No se realizó ningún cambio.")
+        return
+
+    confirmacion = input("¿Confirmar anulación? (s/n): ").lower().strip()
+    if confirmacion != "s":
+        print("Operación cancelada.")
+        return
+
+    venta["activo"] = False
+
+    print("Venta anulada correctamente.")
+    mostrar_venta(venta, mostrar_detalle=False)
+
+

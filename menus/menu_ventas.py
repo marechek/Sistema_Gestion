@@ -1,4 +1,9 @@
-from servicios.ventas_service import crear_venta
+from servicios.ventas_service import (
+    crear_venta,
+    listar_ventas,
+    ver_detalle_venta,
+    anular_venta
+)
 
 
 def mostrar_menu(opciones):
@@ -10,6 +15,9 @@ def mostrar_menu(opciones):
 def menu_ventas():
     opciones = {
         "1": ("Crear venta", crear_venta),
+        "2": ("Listar ventas", listar_ventas),
+        "3": ("Ver detalle de venta", ver_detalle_venta),
+        "4": ("Anular venta", anular_venta),
         "0": ("Volver al menú principal", None)
     }
 
@@ -32,3 +40,4 @@ def menu_ventas():
         except Exception as e:
             print("Ocurrió un error al ejecutar la opción.")
             print(f"Detalle técnico: {e}")
+
