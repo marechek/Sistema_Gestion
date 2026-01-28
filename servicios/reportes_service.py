@@ -108,8 +108,12 @@ def reporte_top_productos_vendidos(top_n=5):
         return
 
     # ordenar por cantidad desc
-    ranking = sorted(acumulado.items(), key=lambda x: x[1]["cantidad"], reverse=True)
+    ranking = sorted(acumulado.items(), key=ordenar_por_cantidad, reverse=True)
+    
+    def ordenar_por_cantidad(item):
+        return item[1]["cantidad"]
 
+    
     # set: productos únicos vendidos (consigna)
     productos_unicos = {pid for pid, _ in ranking}
     print(f"Productos únicos vendidos: {len(productos_unicos)}\n")
@@ -151,7 +155,10 @@ def reporte_top_clientes_por_monto(top_n=5):
         print("-" * 110)
         return
 
-    ranking = sorted(acumulado.items(), key=lambda x: x[1]["monto"], reverse=True)
+    ranking = sorted(acumulado.items(), reverse=True, key=ordenar_por_monto)
+
+    def ordenar_por_monto(item):
+        return item[1]["monto"]
 
     limite = min(top_n, len(ranking))
     for i in range(limite):
