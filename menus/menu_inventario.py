@@ -8,6 +8,11 @@ from servicios.inventario_service import (
     activar_producto
 )
 
+def mostrar_menu(opciones):
+    print("\nMENÚ INVENTARIO")
+    for key, valor in opciones.items():
+        texto = valor[0]
+        print(f"{key}. {texto}")
 
 def menu_inventario():
     opciones = {
@@ -20,20 +25,21 @@ def menu_inventario():
     }
 
     while True:
-        print("\nMENÚ INVENTARIO")
-        for key, valor in opciones.items():
-            texto = valor[0]
-            print(f"{key}. {texto}")
-
-        opcion = input("Seleccione una opción: ")
+        mostrar_menu(opciones)
+        opcion = input("Seleccione una opción: ").strip()
 
         if opcion == "0":
             print("Volviendo al menú principal...")
             break
 
-        accion = opciones.get(opcion)
-
-        if accion:
-            accion[1]()
-        else:
+        if opcion not in opciones:
             print("Opción inválida. Intente nuevamente.")
+            continue
+
+        accion = opciones[opcion][1]
+
+        try:
+            accion()
+        except Exception as e:
+            print("Ocurrió un error al ejecutar la opción.")
+            print(f"Detalle técnico: {e}")

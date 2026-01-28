@@ -1,34 +1,28 @@
 # Funciones de validación de entradas del usuario
 
-def validar_entero(mensaje):
+def validar_numero(mensaje, tipo=int, minimo=0):
     """
-    Solicita un número entero positivo al usuario.
+    Solicita un número (entero o flotante) al usuario.
     Repite hasta que el valor sea válido.
     """
     while True:
         try:
-            valor = int(input(mensaje))
-            if valor < 0:
-                print("El valor no puede ser negativo.")
+            valor = tipo(input(mensaje))
+            if valor < minimo:
+                print(f"El valor no puede ser menor que {minimo}.")
                 continue
             return valor
         except ValueError:
-            print("Debes ingresar un número entero válido.")
+            tipo_nombre = "entero" if tipo == int else "numérico"
+            print(f"Debes ingresar un valor {tipo_nombre} válido.")
+
+
+def validar_entero(mensaje):
+    return validar_numero(mensaje, int, 0)
 
 
 def validar_flotante(mensaje):
-    """
-    Solicita un número decimal positivo al usuario.
-    """
-    while True:
-        try:
-            valor = float(input(mensaje))
-            if valor < 0:
-                print("El valor no puede ser negativo.")
-                continue
-            return valor
-        except ValueError:
-            print("Debes ingresar un número válido.")
+    return validar_numero(mensaje, float, 0)
 
 
 def validar_texto_no_vacio(mensaje):
@@ -37,7 +31,7 @@ def validar_texto_no_vacio(mensaje):
     """
     while True:
         texto = input(mensaje).strip()
-        if texto == "":
+        if not texto:
             print("El texto no puede estar vacío.")
             continue
         return texto
