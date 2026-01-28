@@ -307,9 +307,22 @@ def anular_venta():
         print("Operación cancelada.")
         return
 
+    # 1) Devolver stock al inventario
+    items = venta.get("items", [])
+    for item in items:
+        producto = buscar_producto_por_id(item["producto_id"])
+
+        if not producto:
+            print(f"No se encontró el producto ID {item['producto_id']} para devolver stock.")
+            continue
+
+        producto["stock"] += item["cantidad"]
+
+    # 2) Anulación lógica
     venta["activo"] = False
 
-    print("Venta anulada correctamente.")
+    print("Venta anulada correctamente y stock devuelto al inventario.")
     mostrar_venta(venta, mostrar_detalle=False)
+
 
 
