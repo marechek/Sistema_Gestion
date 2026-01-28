@@ -1,3 +1,5 @@
+# Lógica de negocio del módulo Clientes
+
 from data.clientes import clientes
 from utils.validaciones import validar_texto_no_vacio, validar_entero
 
