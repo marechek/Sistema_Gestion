@@ -1,6 +1,8 @@
 from menus.menu_inventario import menu_inventario
 from menus.menu_clientes import menu_clientes
 from menus.menu_ventas import menu_ventas
+from menus.menu_reportes import menu_reportes
+from menus.menu_ventas import menu_ventas
 
 def mostrar_menu(opciones):
     print("\nMENÚ PRINCIPAL")
@@ -12,7 +14,7 @@ def menu_principal():
         "1": ("Módulo Inventario", menu_inventario),
         "2": ("Módulo Clientes", menu_clientes),
         "3": ("Módulo Ventas", menu_ventas),
-        "4": ("Reportes", None),
+        "4": ("Reportes", menu_reportes),
         "0": ("Salir", None)
     }
 
