@@ -103,6 +103,48 @@ def crear_venta():
         print("-" * 110)
         print(f"TOTAL PARCIAL: ${formato_pesos_clp(total)}")
 
+    def editar_cantidad_item(carrito, indice, nueva_cantidad):
+        """
+        Ajusta la cantidad de un item del carrito y sincroniza stock reservado.
+
+        - Si aumenta cantidad: requiere stock disponible en inventario.
+        (se descuenta más stock)
+        - Si disminuye cantidad: se devuelve stock.
+        - Si nueva_cantidad <= 0: no se permite (usar eliminar item).
+        Retorna (True/False, mensaje)
+        """
+        if indice < 0 or indice >= len(carrito):
+            return False, "Índice inválido."
+
+        if nueva_cantidad <= 0:
+            return False, "Cantidad inválida. Para quitar el producto usa 'Eliminar item'."
+
+        item = carrito[indice]
+        producto = buscar_producto_por_id(item["producto_id"])
+
+        if not producto:
+            return False, "Producto no encontrado en inventario."
+
+        cantidad_actual = item["cantidad"]
+        diferencia = nueva_cantidad - cantidad_actual
+
+        # Si aumenta, necesitamos stock disponible para reservar
+        if diferencia > 0:
+            if diferencia > producto["stock"]:
+                return False, "No hay stock suficiente para aumentar la cantidad."
+            producto["stock"] -= diferencia  # reserva adicional
+
+        # Si disminuye, devolvemos stock
+        elif diferencia < 0:
+            producto["stock"] += abs(diferencia)
+
+        # Actualizar item
+        item["cantidad"] = nueva_cantidad
+        item["subtotal"] = item["precio"] * nueva_cantidad
+
+        return True, "Cantidad actualizada y stock ajustado."
+
+    
     def eliminar_item_por_indice(carrito, indice):
         """
         Elimina un item del carrito por índice y devuelve el stock reservado.
@@ -203,6 +245,40 @@ def crear_venta():
         print("-" * 110)
         print(f"TOTAL: ${formato_pesos_clp(total)}")
 
+    def accion_editar_cantidad_item():
+        if not carrito:
+            print("\nCarrito vacío. No hay nada que editar.")
+            return
+
+        print("\nItems en carrito:")
+        print("-" * 110)
+        for i, item in enumerate(carrito, start=1):
+            subtotal = formato_pesos_clp(item["subtotal"])
+            print(f"{i}. {item['nombre']} | Cant: {item['cantidad']} | Subtotal: ${subtotal}")
+        print("-" * 110)
+
+        nro = validar_entero("Ingrese el número del item a editar: ")
+        indice = nro - 1
+
+        if indice < 0 or indice >= len(carrito):
+            print("Número inválido.")
+            return
+
+        actual = carrito[indice]["cantidad"]
+        print(f"Cantidad actual: {actual}")
+
+        nueva = validar_entero("Nueva cantidad: ")
+
+        ok, msg = editar_cantidad_item(carrito, indice, nueva)
+        print(msg)
+
+        if ok:
+            try:
+                previsualizar_carrito(carrito)
+            except NameError:
+                pass
+
+    
     def accion_eliminar_item():
         if not carrito:
             print("\nCarrito vacío. No hay nada para eliminar.")
@@ -271,10 +347,11 @@ def crear_venta():
     opciones_carrito = {
         "1": ("Agregar producto", accion_agregar_producto),
         "2": ("Ver carrito", accion_ver_carrito),
-        "3": ("Eliminar item del carrito", accion_eliminar_item),
-        "4": ("Finalizar venta", accion_finalizar_venta),
+        "3": ("Editar cantidad de un item", accion_editar_cantidad_item),
+        "4": ("Eliminar item del carrito", accion_eliminar_item),
+        "5": ("Finalizar venta", accion_finalizar_venta),
         "0": ("Cancelar", None)
-    }
+        }
 
 
     while True:
@@ -294,7 +371,7 @@ def crear_venta():
 
         try:
             resultado = accion()
-            if opcion == "4" and resultado is True:
+            if opcion == "5" and resultado is True:
                 return
         except Exception as e:
             print("Ocurrió un error al ejecutar la opción.")
