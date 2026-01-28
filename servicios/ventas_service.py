@@ -170,6 +170,16 @@ def crear_venta():
             if producto:
                 producto["stock"] += item["cantidad"]
 
+    def buscar_indice_item_en_carrito(carrito, producto_id):
+        """
+        Retorna el índice del item en el carrito para ese producto_id,
+        o -1 si no existe.
+        """
+        for i, item in enumerate(carrito):
+            if item["producto_id"] == producto_id:
+                return i
+        return -1
+    
     def accion_agregar_producto():
         print("\nSeleccione un producto:")
         listar_productos()
@@ -205,16 +215,22 @@ def crear_venta():
 
         producto["stock"] -= cantidad
 
-        item = {
-            "producto_id": producto["id"],
-            "nombre": producto["nombre"],
-            "precio": producto["precio"],
-            "cantidad": cantidad,
-            "subtotal": producto["precio"] * cantidad
-        }
+        indice = buscar_indice_item_en_carrito(carrito, producto["id"])
 
-        carrito.append(item)
-        print("Producto agregado al carrito (stock reservado).")
+        if indice == -1:
+            item = {
+                "producto_id": producto["id"],
+                "nombre": producto["nombre"],
+                "precio": producto["precio"],
+                "cantidad": cantidad,
+                "subtotal": producto["precio"] * cantidad
+            }
+            carrito.append(item)
+            print("Producto agregado al carrito (stock reservado).")
+        else:
+            carrito[indice]["cantidad"] += cantidad
+            carrito[indice]["subtotal"] = carrito[indice]["precio"] * carrito[indice]["cantidad"]
+            print("Producto ya estaba en el carrito: cantidad actualizada (stock reservado).")
 
         try:
             previsualizar_carrito(carrito)
