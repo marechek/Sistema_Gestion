@@ -85,6 +85,8 @@ def reporte_resumen_ventas():
     print(f"Ticket promedio (ventas activas): ${formato_pesos_clp(ticket_promedio)}")
     print("-" * 110)
 
+def ordenar_por_cantidad(item):
+        return item[1]["cantidad"]
 
 def reporte_top_productos_vendidos(top_n=5):
     print("\nREPORTE: TOP PRODUCTOS VENDIDOS (VENTAS ACTIVAS)")
@@ -110,10 +112,7 @@ def reporte_top_productos_vendidos(top_n=5):
     # ordenar por cantidad desc
     ranking = sorted(acumulado.items(), key=ordenar_por_cantidad, reverse=True)
     
-    def ordenar_por_cantidad(item):
-        return item[1]["cantidad"]
-
-    
+       
     # set: productos únicos vendidos (consigna)
     productos_unicos = {pid for pid, _ in ranking}
     print(f"Productos únicos vendidos: {len(productos_unicos)}\n")
@@ -129,6 +128,8 @@ def reporte_top_productos_vendidos(top_n=5):
 
     print("-" * 110)
 
+def ordenar_por_monto(item):
+        return item[1]["monto"]
 
 def reporte_top_clientes_por_monto(top_n=5):
     print("\nREPORTE: TOP CLIENTES POR MONTO (VENTAS ACTIVAS)")
@@ -156,9 +157,6 @@ def reporte_top_clientes_por_monto(top_n=5):
         return
 
     ranking = sorted(acumulado.items(), reverse=True, key=ordenar_por_monto)
-
-    def ordenar_por_monto(item):
-        return item[1]["monto"]
 
     limite = min(top_n, len(ranking))
     for i in range(limite):

@@ -76,6 +76,58 @@ def crear_venta():
         for key, valor in opciones.items():
             print(f"{key}. {valor[0]}")
 
+    def previsualizar_carrito(carrito):
+        """
+        Muestra una vista rápida del carrito (items + total).
+        Se usa después de agregar productos para mejorar UX.
+        """
+        if not carrito:
+            print("\nCarrito vacío.")
+            return
+
+        print("\nPrevisualización del carrito")
+        print("-" * 110)
+
+        for item in carrito:
+            precio = formato_pesos_clp(item["precio"])
+            subtotal = formato_pesos_clp(item["subtotal"])
+            print(
+                f"ID: {item['producto_id']} | "
+                f"{item['nombre']} | "
+                f"Precio: ${precio} | "
+                f"Cantidad: {item['cantidad']} | "
+                f"Subtotal: ${subtotal}"
+            )
+
+        total = calcular_total_recursivo(carrito)
+        print("-" * 110)
+        print(f"TOTAL PARCIAL: ${formato_pesos_clp(total)}")
+
+    def eliminar_item_por_indice(carrito, indice):
+        """
+        Elimina un item del carrito por índice y devuelve el stock reservado.
+        Retorna True si eliminó, False si el índice no es válido.
+        """
+        if indice < 0 or indice >= len(carrito):
+            return False
+
+        item = carrito.pop(indice)
+        producto = buscar_producto_por_id(item["producto_id"])
+        if producto:
+            producto["stock"] += item["cantidad"]
+
+        return True
+
+    def devolver_reserva_stock(carrito):
+        """
+        Devuelve al inventario el stock reservado por los items del carrito.
+        Se usa si la venta se cancela o no se confirma.
+        """
+        for item in carrito:
+            producto = buscar_producto_por_id(item["producto_id"])
+            if producto:
+                producto["stock"] += item["cantidad"]
+
     def accion_agregar_producto():
         print("\nSeleccione un producto:")
         listar_productos()
@@ -91,16 +143,12 @@ def crear_venta():
             print("El producto está inactivo. No se puede vender.")
             return
 
-        ya_en_carrito = obtener_cantidad_en_carrito(carrito, id_producto)
-        stock_disponible = producto["stock"] - ya_en_carrito
-
-        if stock_disponible <= 0:
+        if producto["stock"] <= 0:
             print("No hay stock disponible para este producto.")
             return
 
         print("\nProducto seleccionado:")
         mostrar_producto(producto)
-        print(f"Stock disponible para esta venta: {stock_disponible}")
 
         cantidad = validar_entero("Cantidad: ")
 
@@ -108,9 +156,12 @@ def crear_venta():
             print("La cantidad debe ser mayor a 0.")
             return
 
-        if cantidad > stock_disponible:
-            print("Cantidad supera el stock disponible para esta venta.")
+        # RESERVA: se descuenta stock al agregar al carrito
+        if cantidad > producto["stock"]:
+            print("Cantidad supera el stock disponible.")
             return
+
+        producto["stock"] -= cantidad
 
         item = {
             "producto_id": producto["id"],
@@ -121,7 +172,13 @@ def crear_venta():
         }
 
         carrito.append(item)
-        print("Producto agregado al carrito.")
+        print("Producto agregado al carrito (stock reservado).")
+
+        try:
+            previsualizar_carrito(carrito)
+        except NameError:
+            pass
+
 
     def accion_ver_carrito():
         if not carrito:
@@ -146,6 +203,34 @@ def crear_venta():
         print("-" * 110)
         print(f"TOTAL: ${formato_pesos_clp(total)}")
 
+    def accion_eliminar_item():
+        if not carrito:
+            print("\nCarrito vacío. No hay nada para eliminar.")
+            return
+
+        print("\nItems en carrito:")
+        print("-" * 110)
+        for i, item in enumerate(carrito, start=1):
+            subtotal = formato_pesos_clp(item["subtotal"])
+            print(f"{i}. {item['nombre']} | Cant: {item['cantidad']} | Subtotal: ${subtotal}")
+        print("-" * 110)
+
+        nro = validar_entero("Ingrese el número del item a eliminar: ")
+        indice = nro - 1
+
+        eliminado = eliminar_item_por_indice(carrito, indice)
+
+        if not eliminado:
+            print("Número inválido. No se eliminó ningún item.")
+            return
+
+        print("Item eliminado y stock devuelto.")
+        try:
+            previsualizar_carrito(carrito)
+        except NameError:
+            pass
+
+
     def accion_finalizar_venta():
         if not carrito:
             print("No puedes finalizar una venta con el carrito vacío.")
@@ -156,14 +241,11 @@ def crear_venta():
         confirmacion = input("¿Confirmar venta? (s/n): ").lower().strip()
 
         if confirmacion != "s":
-            print("Venta no confirmada.")
+            devolver_reserva_stock(carrito)
+            carrito.clear()
+            print("Venta no confirmada. Stock devuelto y carrito limpiado.")
             return
 
-        # Actualizo el stock
-        for item in carrito:
-            producto = buscar_producto_por_id(item["producto_id"])
-            if producto:
-                producto["stock"] -= item["cantidad"]
 
         # Registro la venta
         venta = {
@@ -189,16 +271,19 @@ def crear_venta():
     opciones_carrito = {
         "1": ("Agregar producto", accion_agregar_producto),
         "2": ("Ver carrito", accion_ver_carrito),
-        "3": ("Finalizar venta", accion_finalizar_venta),
+        "3": ("Eliminar item del carrito", accion_eliminar_item),
+        "4": ("Finalizar venta", accion_finalizar_venta),
         "0": ("Cancelar", None)
     }
+
 
     while True:
         mostrar_menu_carrito(opciones_carrito)
         opcion = input("Seleccione una opción: ").strip()
 
         if opcion == "0":
-            print("Venta cancelada.")
+            devolver_reserva_stock(carrito)
+            print("Venta cancelada. Stock devuelto.")
             return
 
         if opcion not in opciones_carrito:
@@ -209,7 +294,7 @@ def crear_venta():
 
         try:
             resultado = accion()
-            if opcion == "3" and resultado is True:
+            if opcion == "4" and resultado is True:
                 return
         except Exception as e:
             print("Ocurrió un error al ejecutar la opción.")
