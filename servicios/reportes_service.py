@@ -1,3 +1,5 @@
+# Lógica de negocio del módulo Reportes
+
 from data.inventario import inventario, CATEGORIAS
 from data.clientes import clientes
 from data.ventas import ventas
