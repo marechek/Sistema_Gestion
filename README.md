@@ -417,6 +417,14 @@ Las capturas adicionales de pruebas (edición, anulación de ventas, activación
 
 ---
 
+## 📘 Documentación Técnica
+
+La documentación técnica detallada del sistema, incluyendo arquitectura, estructuras de datos, decisiones de diseño y pruebas, se encuentra disponible en:
+
+`docs/documentacion_tecnica.md`
+
+---
+
 ## 🏁 Conclusiones Finales
 
 El desarrollo de este sistema de gestión de datos permitió aplicar de forma práctica los principales conceptos abordados en el Módulo 3: Desarrollo con Python, integrándolos en una solución funcional y coherente.
