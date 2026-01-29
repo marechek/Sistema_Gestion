@@ -377,15 +377,15 @@ Las capturas completas de las pruebas manuales se encuentran organizadas en el d
 
 ### 📦 Módulo Inventario
 Prueba de listado y registro de productos desde el menú de inventario.
-![Inventario](docs/capturas/1_INVENTARIO_1_Listar%y%Agregar%Producto.png)
+![Inventario](docs/capturas/1_INVENTARIO_1_Listar_y_Agregar_Producto.png)
 
 ### 👥 Módulo Clientes
 Registro y visualización de clientes, junto con validaciones de estado.
-![Clientes](docs/capturas/2_CLIENTES_1_Listar%y%Registrar%cliente.png)
+![Clientes](docs/capturas/2_CLIENTES_1_Listar_y_Registrar_cliente.png)
 
 ### 🛒 Módulo Ventas – Carrito de Compras
 Flujo de creación de una venta utilizando el carrito de compras, incluyendo reserva de stock y cálculo de totales.
-![Ventas](docs/capturas/3_VENTAS_2_4_Crear%ventas%Carrito.png)
+![Ventas](docs/capturas/3_VENTAS_2_4_Crear_ventas_Carrito.png)
 
 > Debido a la extensión del flujo de ventas, la prueba completa del carrito se documenta en múltiples capturas disponibles en el directorio `docs/capturas/`.
 
