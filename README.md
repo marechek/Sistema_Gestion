@@ -350,6 +350,7 @@ El sistema se ejecuta completamente desde la **línea de comandos (CLI)** y no r
 git clone https://github.com/marechek/Sistema_Gestion.git
 cd Sistema_Gestion
 python main.py
+```
 
 4. El sistema mostrará el menú principal, desde donde podrás navegar por los distintos módulos:
     - Inventario
