@@ -61,7 +61,7 @@ Casos de prueba validados:
 - Visualización correcta del estado del producto.
 
 📷 Evidencia:
-![Inventario](docs/capturas/1_INVENTARIO_1_Listar_y_Agregar_Producto.png)
+![Inventario](capturas/1_INVENTARIO_1_Listar_y_Agregar_Producto.png)
 
 ---
 
@@ -76,7 +76,7 @@ Casos de prueba validados:
 - Validación de existencia y estado del cliente.
 
 📷 Evidencia:
-![Clientes](docs/capturas/2_CLIENTES_1_Listar_y_Registrar_cliente.png)
+![Clientes](capturas/2_CLIENTES_1_Listar_y_Registrar_cliente.png)
 
 ---
 
@@ -97,7 +97,7 @@ Casos de prueba validados:
 - Anulación de venta con devolución de stock al inventario.
 
 📷 Evidencia:
-![Ventas](docs/capturas/3_VENTAS_2_2_Crear_ventas_Carrito.png)
+![Ventas](capturas/3_VENTAS_2_2_Crear_ventas_Carrito.png)
 
 ---
 
@@ -113,7 +113,7 @@ Casos de prueba validados:
 - Reporte de clientes activos e inactivos.
 
 📷 Evidencia:
-![Reportes](docs/capturas/4_REPORTES_1_Varios.png)
+![Reportes](capturas/4_REPORTES_1_Varios.png)
 
 ---
 
