@@ -39,38 +39,41 @@ El sistema busca demostrar la correcta aplicación de los contenidos del módulo
 El proyecto está organizado de forma modular, separando claramente las responsabilidades de cada componente del sistema. La estructura de carpetas permite una fácil lectura, mantenimiento y escalabilidad del código.
 
 ```plaintext
-📦 proyecto-gestion-datos/
+📦 sistema_gestion/
 │
-├── main.py                     # Punto de entrada del sistema
+├── main.py                       # Punto de entrada del sistema
 │
-├── menus/                      # Menús de navegación del sistema
-│   ├── menu_principal.py       # Menú principal
-│   ├── menu_inventario.py      # Menú del módulo Inventario
-│   ├── menu_clientes.py        # Menú del módulo Clientes
-│   ├── menu_ventas.py          # Menú del módulo Ventas
-│   └── menu_reportes.py        # Menú del módulo Reportes
+├── menus/                        # Menús de navegación del sistema
+│   ├── menu_principal.py         # Menú principal
+│   ├── menu_inventario.py        # Menú del módulo Inventario
+│   ├── menu_clientes.py          # Menú del módulo Clientes
+│   ├── menu_ventas.py            # Menú del módulo Ventas
+│   └── menu_reportes.py          # Menú del módulo Reportes
 │
-├── servicios/                  # Lógica de negocio del sistema
-│   ├── inventario_service.py   # Gestión de productos y stock
-│   ├── clientes_service.py     # Gestión de clientes
-│   ├── ventas_service.py       # Gestión de ventas
-│   └── reportes_service.py     # Generación de reportes
+├── servicios/                    # Lógica de negocio del sistema
+│   ├── inventario_service.py     # Gestión de productos y stock
+│   ├── clientes_service.py       # Gestión de clientes
+│   ├── ventas_service.py         # Gestión de ventas
+│   └── reportes_service.py       # Generación de reportes
 │
-├── data/                       # Almacenamiento de datos (simulados)
-│   ├── inventario.py           # Datos de productos
-│   ├── clientes.py             # Datos de clientes
-│   └── ventas.py               # Datos de ventas
+├── data/                         # Almacenamiento de datos (simulados)
+│   ├── inventario.py             # Datos de productos
+│   ├── clientes.py               # Datos de clientes
+│   └── ventas.py                 # Datos de ventas
 │
-├── utils/                      # Funciones utilitarias y validaciones
-│   └── validaciones.py         # Validación de entradas y utilidades comunes
+├── utils/                        # Funciones utilitarias y validaciones
+│   └── validaciones.py           # Validación de entradas y utilidades comunes
 │
-├── reportes/                   # Archivos de salida / reportes generados
+├── reportes/                     # Archivos de salida / reportes generados
 │
-├── tests/                      # Pruebas del sistema
+├── tests/                        # Pruebas del sistema
 │
-├── docs/                       # Documentación adicional
+├── docs/                         # Documentación adicional
+│   ├── capturas/                 # Capturas completas del proceso de validación
+│   ├── documentacion_tecnica.md  # Documentación técnica
+│   └── informe_validacion.md     # Informe de validación
 │
-└── README.md                   # Documentación principal del proyecto
+└── README.md                     # Documentación principal del proyecto
 
 ...
 ```
