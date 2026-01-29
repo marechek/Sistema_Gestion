@@ -17,6 +17,8 @@ El proyecto prioriza:
 
 Todo el sistema se ejecuta en entorno de **línea de comandos (CLI)** y simula un caso real de gestión administrativa.
 
+---
+
 ## 🎯 Objetivo
 
 El objetivo de este proyecto es desarrollar un sistema en Python que permita:
@@ -29,6 +31,8 @@ El objetivo de este proyecto es desarrollar un sistema en Python que permita:
 - Validar entradas para evitar errores en la ejecución del programa.
 
 El sistema busca demostrar la correcta aplicación de los contenidos del módulo, ofreciendo una solución funcional, estructurada y mantenible para la gestión de datos en un contexto simulado.
+
+---
 
 ## 📁 Estructura del Proyecto
 
@@ -72,6 +76,8 @@ El proyecto está organizado de forma modular, separando claramente las responsa
 ```
 
 Esta estructura permite una navegación clara del sistema y refuerza el principio de **separación de responsabilidades**, manteniendo el código ordenado y fácil de entender.
+
+---
 
 ## ⚙️ Módulos y Funcionalidades
 
@@ -142,6 +148,8 @@ Funcionalidades:
 
 Este módulo utiliza estructuras de datos como listas, diccionarios y conjuntos (set) para procesar información sin duplicados y generar estadísticas relevantes para la toma de decisiones.
 
+---
+
 ## 🛒 Flujo de Venta y Carrito de Compras
 
 Este sistema implementa un **flujo de venta basado en un carrito de compras**, que permite gestionar de forma controlada la selección de productos, validación de stock y confirmación final de la venta.
@@ -201,6 +209,8 @@ Al anular una venta:
 - El stock de los productos asociados es devuelto al inventario.
 - La venta se mantiene registrada para efectos de consulta y reportes.
 
+---
+
 ## 🔍 Supuestos, Alcance y Restricciones
 
 Para el desarrollo del sistema se definieron los siguientes supuestos y criterios de diseño, con el objetivo de simplificar la implementación y enfocarse en los conceptos clave del módulo:
@@ -214,6 +224,8 @@ Para el desarrollo del sistema se definieron los siguientes supuestos y criterio
 - La validación de entradas se realiza de forma preventiva para evitar errores de ejecución.
 - El stock de productos se controla estrictamente durante el proceso de venta, mediante reservas temporales.
 - El sistema prioriza **claridad, legibilidad y modularización** por sobre optimizaciones avanzadas.
+
+---
 
 ## 🧩 Decisiones de Diseño y Arquitectura
 
@@ -231,6 +243,8 @@ Durante el desarrollo del sistema se tomaron diversas decisiones de diseño con 
 - Preferencia por claridad y legibilidad del código por sobre optimizaciones prematuras.
 
 Estas decisiones permiten que el sistema sea fácil de comprender, probar y extender, manteniendo un nivel adecuado al contexto académico del proyecto.
+
+---
 
 ## 🛠️ Tecnologías y Conceptos Aplicados
 
@@ -293,6 +307,8 @@ El proyecto fue desarrollado utilizando **Python** como lenguaje principal, apli
 
 Este conjunto de tecnologías y conceptos permite construir un sistema funcional, coherente y alineado con los objetivos de aprendizaje del módulo, manteniendo un enfoque académico pero realista.
 
+---
+
 ## ✅ Validaciones y Manejo de Errores
 
 Para asegurar el correcto funcionamiento del sistema y evitar errores durante la ejecución, se implementaron distintos mecanismos de validación y control de errores en toda la aplicación.
@@ -332,6 +348,8 @@ Estas validaciones permiten prevenir errores comunes como:
 
 Este enfoque garantiza una experiencia de usuario controlada, previene estados inconsistentes en los datos y refuerza la robustez general del sistema.
 
+---
+
 ## 🚀 Cómo Ejecutar el Proyecto
 
 El sistema se ejecuta completamente desde la **línea de comandos (CLI)** y no requiere dependencias externas ni configuraciones adicionales.
@@ -370,6 +388,8 @@ Los datos se almacenan en memoria utilizando estructuras como listas y diccionar
 Al reiniciar el programa, los datos vuelven a su estado inicial.
 Este comportamiento es intencional y forma parte del alcance del proyecto académico.
 
+---
+
 ## 🧪 Evidencia de Pruebas Manuales
 
 A continuación se presentan capturas de pruebas manuales realizadas en la terminal, que evidencian el correcto funcionamiento de los principales módulos del sistema.
@@ -395,6 +415,8 @@ Generación de distintos reportes consolidados desde el sistema.
 
 Las capturas adicionales de pruebas (edición, anulación de ventas, activación/desactivación de entidades, validaciones y reportes adicionales) se encuentran organizadas en el directorio `docs/capturas/`.
 
+---
+
 ## 🏁 Conclusiones Finales
 
 El desarrollo de este sistema de gestión de datos permitió aplicar de forma práctica los principales conceptos abordados en el Módulo 3: Desarrollo con Python, integrándolos en una solución funcional y coherente.
@@ -409,6 +431,33 @@ A través de este proyecto se logró:
 - Priorizar la claridad y comprensión del código por sobre optimizaciones avanzadas, acorde al nivel y objetivos del módulo.
 
 En conclusión, el proyecto cumple con los objetivos planteados, demostrando una correcta aplicación de los contenidos vistos en el módulo y sentando una base sólida para futuras mejoras, como la incorporación de persistencia de datos, interfaces gráficas o bases de datos.
+
+---
+
+## 🔄 Control de Versiones
+
+El proyecto fue versionado utilizando **Git** como sistema de control de versiones y **GitHub** como repositorio remoto.
+
+Durante el desarrollo se utilizó una estrategia basada en **ramas**, lo que permitió trabajar de forma ordenada y controlada sobre cada módulo del sistema. Cada funcionalidad principal fue desarrollada en su propia rama y posteriormente integrada a la rama principal (`master`) mediante merges controlados.
+
+Principales prácticas aplicadas:
+- Uso de la rama `master` como rama estable del proyecto.
+- Creación de ramas específicas para el desarrollo de funcionalidades (por ejemplo, módulo de ventas).
+- Commits frecuentes y descriptivos.
+- Integración final de funcionalidades mediante merge controlado.
+- Respaldo permanente del proyecto en GitHub.
+
+Este enfoque permitió mantener un historial claro de cambios, facilitar la detección de errores y asegurar la estabilidad del proyecto en cada etapa de desarrollo.
+
+---
+
+## 👤 Autor
+
+Proyecto académico desarrollado como parte del **Módulo 3 – Desarrollo con Python**, en el marco de la **Actividad Basada en Proyectos (ABP 2)**.
+
+El proyecto fue diseñado, desarrollado, probado y documentado íntegramente por **Marcos Elias**, aplicando los contenidos y buenas prácticas abordadas durante el módulo.
+
+---
 
 ## 🔮 Posibles Mejoras Futuras
 
