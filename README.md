@@ -425,6 +425,15 @@ La documentación técnica detallada del sistema, incluyendo arquitectura, estru
 
 ---
 
+## 🧪 Informe de Validación
+
+El informe de validación documenta las pruebas realizadas sobre el sistema, incluyendo casos de prueba, resultados y evidencias gráficas del funcionamiento de los distintos módulos.  
+Este documento se encuentra disponible en:
+
+`docs/informe_validacion.md`
+
+---
+
 ## 🏁 Conclusiones Finales
 
 El desarrollo de este sistema de gestión de datos permitió aplicar de forma práctica los principales conceptos abordados en el Módulo 3: Desarrollo con Python, integrándolos en una solución funcional y coherente.
